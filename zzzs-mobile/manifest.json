@@ -141,11 +141,11 @@
 					}
 				},
 				"android": {
-					"mdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-240x282.png", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-320x442.png", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-480x762.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-1080x1882.png"
+					"mdpi": "D:/Projects/zzzs-mobile/resources/Splash-240x282.png", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "D:/Projects/zzzs-mobile/resources/Splash-320x442.png", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "D:/Projects/zzzs-mobile/resources/Splash-480x762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "D:/Projects/zzzs-mobile/resources/Splash-720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "D:/Projects/zzzs-mobile/resources/Splash-1080x1882.png"
 				}
 			},
 			"plugins": {
