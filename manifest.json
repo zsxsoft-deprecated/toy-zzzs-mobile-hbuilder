@@ -33,9 +33,7 @@
 		"Events": {
 			"description": "应用扩展事件"
 		},
-		"File": {
-			"description": "访问本地文件系统"
-		},
+		
 		
 		
 		"Invocation": {
@@ -44,12 +42,8 @@
 		
 		
 		
-		"Storage": {
-			"description": "管理应用本地数据"
-		},
-		"UI": {
-			"description": "管理系统原生控件"
-		},
+		
+		
 		
 		
 		"XMLHttpRequest": {
@@ -147,11 +141,11 @@
 					}
 				},
 				"android": {
-					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": ""
+					"mdpi": "D:/Projects/zzzs-mobile/img/Splash-240x282.png", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "D:/Projects/zzzs-mobile/img/Splash-320x442.png", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "D:/Projects/zzzs-mobile/img/Splash-480x762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "D:/Projects/zzzs-mobile/img/Splash-720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "D:/Projects/zzzs-mobile/img/Splash-1080x1882.png"
 				}
 			},
 			"plugins": {
