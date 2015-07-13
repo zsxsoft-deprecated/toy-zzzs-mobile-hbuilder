@@ -1,12 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
-  <title>Starter Template - Materialize</title>
+  <title>自主招生</title>
 
-  <!-- CSS  -->
   <link href="icon.css" rel="stylesheet">
   <link href="materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="index.css" type="text/css" rel="stylesheet" media="screen,projection"/>
@@ -19,19 +17,22 @@
   <script src="index.js"></script>
 </head>
 <body id="app">
+  <script type="text/x-template" id="waiting-template">
+</script>
   <script type="text/x-template" id="view-template">
 <div class="card" v-repeat="list" v-component="single-view"></div>
 </script>
   <script type="text/x-template" id="list-template">
 <div>
 <div class="card" v-repeat="list" v-component="single-list"></div>
-<!--<a v-attr="href: '/?id=' + $root.lastId">上一页</a> &nbsp; --><a v-attr="href: '/?id=' + $root.nextId">下一页</a>
+<a class="waves-effect waves-light btn when-loading-hide" v-attr="href: '?id=' + $root.nextId">下一页</a>
 </div>
 </script>
   <script type="text/x-template" id="advanced-template">
 <form class="pure-form">
-<button class="pure-button" v-on="click: updateRobot($event)">机器人更新</button>&nbsp;<button class="pure-button" v-on="click: read10Stdout($event)">读取10行stdout</button>&nbsp;<button class="pure-button" v-on="click: readStdout($event)">读取stdout</button>
-<br/><br/><p><textarea class="pure-input-1" placeholder="Server Result" rows="20" v-model="list" readonly></textarea></p>
+<p><button class="waves-effect waves-light btn" style="width: 100%" v-on="click: updateRobot($event)">机器人更新</button></p>
+<p><button class="waves-effect waves-light btn" style="width: 50%; float:left" v-on="click: read10Stdout($event)">读取10行stdout</button>&nbsp;<button class="waves-effect waves-light btn" style="width:48%; float:right" v-on="click: readStdout($event)">读取stdout</button></p>
+<br/><br/><p><textarea class="materialize-textarea" placeholder="Server Result" rows="13" v-model="list" style="height: 10%"></textarea></p>
 </form>
 </script>
   <script type="text/x-template" id="single-view">
@@ -39,8 +40,10 @@
         <div class="card-content">
           <span class="card-title activator grey-text text-darken-4" v-text="title"></span>
           <p>
-            <span v-text="source +' / '+ time"></span> <p>
-            <a target="_blank" v-attr="href: 'http://gaokao.chsi.com.cn' + url" v-on="click: onClick('http://gaokao.chsi.com.cn' + url, $event)" >去官网</a></p>
+            <span v-text="source +' / '+ time"></span>
+            <p><br/>
+              <a class="waves-effect waves-light btn" target="_blank" v-attr="href: 'http://gaokao.chsi.com.cn' + url" v-on="click: onClick('http://gaokao.chsi.com.cn' + url, $event)" >去官网</a>
+            </p>
             <br /><p>&nbsp;</p>
             <article v-html="content"></article>
           </p>
@@ -62,37 +65,109 @@
           <span class="card-title grey-text text-darken-4">
             {{title}} <i class="material-icons right">close</i>
           </span>
-          <p class="post-description" v-html="intro">
-            Here is some more information about this product that is only revealed once clicked on.
-          </p>
         </div>
 </div>
 </script>
-
+<header>
   <nav class="teal" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo">自主招生</a>
-      <ul class="right hide-on-med-and-down">
-        <li>
-          <a href="#">Navbar Link</a>
-        </li>
-      </ul>
 
       <ul id="nav-mobile" class="side-nav">
-        <li>
-          <a href="#">Navbar Link</a>
-        </li>
+                    <li class="nav-item">
+                        <a href="?category=gkxx%2Fzzzs%2F">自招动态</a>
+                    </li>
+                    <li class="nav-item">
+                        <a  href="?category=gkxx%2Fzzzs%2Fbkzn%2F">报考指南</a>
+                    </li>
+				 	<li class="nav-item">
+                        <a href="?category=gkxx%2Fzzzs%2Fgxzc%2F">高校政策</a>
+                    </li>
+				 	<li class="nav-item">
+                        <a href="#" onclick="page('/advanced'); return false;">高级工具</a>
+                    </li>
       </ul>
       <a href="#" data-activates="nav-mobile" class="button-collapse"> <i class="material-icons">menu</i>
       </a>
     </div>
   </nav>
-
+</header>
+<main>
   <div class="container">
+    <div class="row">
+      <div style="text-align: center" class="loading-wrapper-wrapper">
+        <div class="preloader-wrapper active">
+          <div class="spinner-layer spinner-blue">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-red">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-yellow">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+
+          <div class="spinner-layer spinner-green">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="row" v-component="{{currentView}}" v-with="result"></div>
   </div>
-
-  <footer class="page-footer teal"></footer>
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">cloud</i>
+    </a>
+    <ul>
+      <li>
+        <a class="btn-floating btn-floating-action red" data-function="openInNewWindow">
+          <i class="material-icons">open_in_browser</i></i> 
+      </a>
+    </li>
+    <li>
+      <a class="btn-floating btn-floating-action yellow darken-1" data-function="refresh">
+        <i class="material-icons">loop</i>
+      </a>
+    </li>
+  </ul>
+</div>
+</main>
+<footer class="page-footer teal"></footer>
 
 </body>
 </html>

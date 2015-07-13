@@ -12,3 +12,28 @@
 .icon-block .material-icons {
 	font-size: inherit;
 }
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+@keyframes loading-keyframe {
+0% {margin-top: -11em; display: block;}
+100% {margin-top: 10em;}
+}
+@keyframes exitLoading-keyframe {
+0% {margin-top: 10em;}
+100% {margin-top: -5em; display: none;}
+}
+
+.loading-animate {
+animation: loading-keyframe 1s forwards ease-in;
+}
+
+.exitLoading-animate {
+animation: exitLoading-keyframe 1s forwards ease-in;
+}

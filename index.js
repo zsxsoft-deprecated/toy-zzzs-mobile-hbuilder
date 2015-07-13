@@ -1,38 +1,21 @@
 ///<reference path="../typings/tsd.d.ts" />
-(function($) {
-    $(function() {
+$(function() {
 
-        $('.button-collapse').sideNav();
-
-    }); // end of document ready
-})(jQuery); // end of jQuery name space
-(function() {
-
-    /**
-     * 异步得到json
-     * @param  {string}   url
-     * @param  {Function} callback
-     * @return {XMLHttpRequest}
-     */
-    function getJsonAsync(url, callback) {
-        var xmlHttp = new XMLHttpRequest();
-        console.log("http://zizhu.zsxsoft.com" + url);
-        xmlHttp.open("GET", "http://zizhu.zsxsoft.com" + url, true);
-        xmlHttp.send();
-        xmlHttp.addEventListener("readystatechange", function() {
-            if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-                callback(null, JSON.parse(xmlHttp.responseText));
-            } else if (xmlHttp.readyState === 4) {
-                callback({
-                    readyState: xmlHttp.readyState,
-                    status: xmlHttp.status,
-                    statusText: xmlHttp.statusText
-                }, null);
-            }
-        });
-        return xmlHttp;
-    }
-
+    var hostUrl = "http://zizhu.zsxsoft.com";
+    var locationSearch = "";
+    $('.button-collapse').sideNav();
+	$(".btn-floating-action").click(function() {
+		var thisFunction = {
+			openInNewWindow: function() {
+				openInBrowser(hostUrl + "/" + location.hash.replace("#!", "").replace(/^\/|index.html/g, ""));
+			}, 
+			refresh: function() {
+				location.reload();
+			}
+		}
+		var readyFunction = $(this).data("function");
+		thisFunction[readyFunction].call(this);
+	});
     /**
      * 强制触发currentView更新
      * @param  {Vue}      vueObject
@@ -40,10 +23,32 @@
      * @see https://github.com/yyx990803/vue/issues/945
      */
     function updateVue(vueObject, currentView) {
-        vueObject.currentView = '' // 销毁当前的 view
+    	showLoading();
+        vueObject.currentView = 'waiting'; // 销毁当前的 view
         Vue.nextTick(function() {
             vueObject.currentView = currentView
         }.bind(vueObject))
+    }
+    
+    function openInBrowser(originalUri) {
+    	var Intent = plus.android.importClass("android.content.Intent");
+    	var main = plus.android.runtimeMainActivity();
+    	var Uri = plus.android.importClass("android.net.Uri");
+    	var uri = Uri.parse(originalUri);
+    	var intent = new Intent(Intent.ACTION_VIEW,uri);
+		main.startActivity(intent);
+    }
+    function showLoading() {
+    	$(".when-loading-hide").hide();
+    	$(".loading-wrapper-wrapper").show().removeClass("exitLoading-animate").addClass("loading-animate");
+    }
+    
+     function hideLoading() {
+    	$(".loading-wrapper-wrapper").removeClass("loading-animate").addClass("exitLoading-animate");
+    	setTimeout(function() {
+    		$(".loading-wrapper-wrapper").hide();
+    		$("when-loading-hide").show();
+    	}, 1100);
     }
 
     /** 
@@ -88,38 +93,51 @@
 
     window.addEventListener('DOMContentLoaded', function() {
 
+        Vue.component('waiting', {
+            template: '#waiting-template',
+            created: function() {
+            }
+        });
+        
+        
         Vue.component('list', {
             template: '#list-template',
             created: function() {
                 var that = this; // 这玩意在TypeScript格式化后会改变作用域，所以不能用了=_=
-                console.log("wa");
-                getJsonAsync("/api/list/" + location.search, function(err, res) {
+                $.getJSON(hostUrl + "/api/list/" + locationSearch, function(res) {
                     that.list = res;
                     that.isInitialized = true;
-
+					hideLoading();
                     // 上一页ID应该在这里处理，防止数据覆盖
                     updateLastId(that.list[0].id, 0);
                 });
             }
         });
+        
+        
         Vue.component('view', {
             template: '#view-template',
             created: function() {
                 var that = this;
                 // Page得到的ID不能在这里即时出现，应该是双向绑定的锅
-                getJsonAsync("/api/article/" + location.hash.split("/").pop(), function(err, res) {
+                $.getJSON(hostUrl + "/api/article/" + location.hash.split("/").pop(), function(res) {
                     that.list = [res];
                     that.isInitialized = true;
+                    hideLoading();
                     // 处理上一页的ID
                 });
             }
         });
+        
         Vue.component('advanced', {
             template: '#advanced-template',
+            created: function() {
+            	hideLoading();
+            },
             methods: {
                 updateRobot: function(e) {
                     var that = this;
-                    getJsonAsync("/api/robot/", function(err, res) {
+                    $.getJSON(hostUrl + "/api/robot/", function(res) {
                         that.list = JSON.stringify(res);
                         that.isInitialized = true;
                     });
@@ -127,7 +145,7 @@
                 },
                 read10Stdout: function(e) {
                     var that = this;
-                    getJsonAsync("/api/stdout/10/", function(err, res) {
+                    $.getJSON(hostUrl + "/api/stdout/10/", function(res) {
                         that.list = res.join("\n");
                         that.isInitialized = true;
                     });
@@ -135,7 +153,7 @@
                 },
                 readStdout: function(e) {
                     var that = this;
-                    getJsonAsync("/api/stdout/", function(err, res) {
+                    $.getJSON(hostUrl + "/api/stdout/", function(res) {
                         that.list = res.join("\n");
                         that.isInitialized = true;
                     });
@@ -143,13 +161,17 @@
                 }
             }
         });
+        
         Vue.component('single-list', {
             template: "#single-list",
             replace: true,
             methods: {
                 onClick: function(url, e) {
-                	//mui.openWindow((url.match(/^http/) ? url : "http://zizhu.zsxsoft.com" + url));
-                    page(url);
+                	if (/^http/.test(url)) {
+                		openInBrowser(url);
+                	} else {
+                		page(url);
+                	}
                     e.preventDefault();
                 }
             }
@@ -158,7 +180,8 @@
             template: "#single-view",
             replace: true,
             methods: {
-                onClick: function(id, e) {
+                onClick: function(url, e) {
+                	openInBrowser(url);
                     //e.preventDefault();
                 }
             }
@@ -187,13 +210,22 @@
         });
 
         page.base((function() {
-        	var href = location.href;
-        	href = href.split("/");
-        	href.splice(0, 3);
-        	href.pop();
-        	return "/" + href.join("/") + "/";	
-        })()); 
-        page("*", function(req, next){console.log(req); next()})
+            var href = location.href;
+            href = href.split("/");
+            href.splice(0, 3);
+            href.pop();
+            return "/" + href.join("/") + "/";
+        })());
+        page("*", function(req, next) {
+            console.log(req.path);
+            locationSearch  = location.hash.split("?");
+            if (locationSearch.length === 0) {
+            	locationSearch = "";
+            } else {
+            	locationSearch = "?" + locationSearch[1];
+            }
+            next()
+        })
 
         page('index.html', function() {
             app.result.list = [];
@@ -201,12 +233,11 @@
         });
 
         page('/article/:id', function(object) {
-        	console.log(object);
             app.result.list = [];
             updateVue(app, 'view');
         });
 
-        page('/advanced/', function(object) {
+        page('/advanced', function(object) {
             app.result.list = "";
             updateVue(app, 'advanced');
         });
@@ -215,4 +246,4 @@
             hashbang: true
         });
     });
-})();
+});
