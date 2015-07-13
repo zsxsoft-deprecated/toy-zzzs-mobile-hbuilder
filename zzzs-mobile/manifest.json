@@ -3,7 +3,7 @@
 	"id": "H5EAD5DAC",/*应用的标识，创建应用时自动生成，勿手动修改*/
 	"name": "自主招生",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.0.0",/*应用版本名称*/
+		"name": "0.0.1",/*应用版本名称*/
 		"code": "142"
 	},
 	"description": "自主招生信息获取",/*应用描述信息*/
@@ -141,11 +141,11 @@
 					}
 				},
 				"android": {
-					"mdpi": "D:/Projects/zzzs-mobile/img/Splash-240x282.png", /*普通屏启动图片，分辨率：240x282*/
-					"ldpi": "D:/Projects/zzzs-mobile/img/Splash-320x442.png", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "D:/Projects/zzzs-mobile/img/Splash-480x762.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "D:/Projects/zzzs-mobile/img/Splash-720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "D:/Projects/zzzs-mobile/img/Splash-1080x1882.png"
+					"mdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-240x282.png", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-320x442.png", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-480x762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-720x1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "D:/Projects/zzzs-mobile/zzzs-mobile/img/Splash-1080x1882.png"
 				}
 			},
 			"plugins": {

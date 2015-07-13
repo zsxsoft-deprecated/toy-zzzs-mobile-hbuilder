@@ -23,7 +23,6 @@
     "tests"
   ],
   "dependencies": {
-    "pure": "~0.6.0",
     "vue": "~0.12.7",
     "page.js": "~1.6.3",
     "jquery": "~2.1.4"
