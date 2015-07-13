@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Starter Template - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="icon.css" rel="stylesheet">
+  <link href="materialize/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="index.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link rel="stylesheet" href="index.css"></head>
+  <script src="components/vue/dist/vue.min.js"></script>
+  <script src="components/page.js/page.js"></script>
+  <script src="components/jquery/dist/jquery.min.js"></script>
+  <script src="materialize/js/materialize.min.js"></script>
+  <script src="mui.min.js"></script>
+  <script src="index.js"></script>
+</head>
+<body id="app">
+  <script type="text/x-template" id="view-template">
+<div class="card" v-repeat="list" v-component="single-view"></div>
+</script>
+  <script type="text/x-template" id="list-template">
+<div>
+<div class="card" v-repeat="list" v-component="single-list"></div>
+<!--<a v-attr="href: '/?id=' + $root.lastId">上一页</a> &nbsp; --><a v-attr="href: '/?id=' + $root.nextId">下一页</a>
+</div>
+</script>
+  <script type="text/x-template" id="advanced-template">
+<form class="pure-form">
+<button class="pure-button" v-on="click: updateRobot($event)">机器人更新</button>&nbsp;<button class="pure-button" v-on="click: read10Stdout($event)">读取10行stdout</button>&nbsp;<button class="pure-button" v-on="click: readStdout($event)">读取stdout</button>
+<br/><br/><p><textarea class="pure-input-1" placeholder="Server Result" rows="20" v-model="list" readonly></textarea></p>
+</form>
+</script>
+  <script type="text/x-template" id="single-view">
+<div class="card">
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4" v-text="title"></span>
+          <p>
+            <span v-text="source +' / '+ time"></span> <p>
+            <a target="_blank" v-attr="href: 'http://gaokao.chsi.com.cn' + url" v-on="click: onClick('http://gaokao.chsi.com.cn' + url, $event)" >去官网</a></p>
+            <br /><p>&nbsp;</p>
+            <article v-html="content"></article>
+          </p>
+        </div>
+</div>
+</script>
+  <script type="text/x-template" id="single-list">
+<div class="card">
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4" v-text="title"></span>
+          <p>
+            <span v-text="source +' / '+ time"></span> <p>
+            <a v-attr="href: '/article/'+id" v-on="click: onClick('/article/' + id, $event)" target="_blank">打开文章</a>
+            &nbsp;
+            <a target="_blank" v-attr="href: 'http://gaokao.chsi.com.cn' + url" v-on="click: onClick('http://gaokao.chsi.com.cn' + url, $event)" >去官网</a></p>
+          </p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">
+            {{title}} <i class="material-icons right">close</i>
+          </span>
+          <p class="post-description" v-html="intro">
+            Here is some more information about this product that is only revealed once clicked on.
+          </p>
+        </div>
+</div>
+</script>
+
+  <nav class="teal" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo">自主招生</a>
+      <ul class="right hide-on-med-and-down">
+        <li>
+          <a href="#">Navbar Link</a>
+        </li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li>
+          <a href="#">Navbar Link</a>
+        </li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"> <i class="material-icons">menu</i>
+      </a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row" v-component="{{currentView}}" v-with="result"></div>
+  </div>
+
+  <footer class="page-footer teal"></footer>
+
+</body>
+</html>
