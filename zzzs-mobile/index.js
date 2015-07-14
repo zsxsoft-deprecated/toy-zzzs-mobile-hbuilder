@@ -1,4 +1,9 @@
 ///<reference path="../typings/tsd.d.ts" />
+/**
+ * 代码就是这么烂
+ * 这块的代码是HBuilder写的
+ * 算了，随便
+ */
 $(function() {
 
     var hostUrl = "http://zizhu.zsxsoft.com";
